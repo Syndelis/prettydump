@@ -16,10 +16,12 @@ int main() {
 
     char str[256], *s, *c;
     int not_zero, count;
+    char piped;
 
     while (fgets(str, 256, stdin)) {
 
         count = 0;
+        piped = 0;
         s = strtok(str, " ");
         do {
 
@@ -27,10 +29,16 @@ int main() {
                 if (*s == '*') printf(ASTERISK "*\n");
                 else Print(LINE, s);
             }
+
+            else if (piped) printf(CLEAN " %s", s);
+
             else {
 
-                if (*s == '|') printf(CLEAN "%s", s);
-                else if (*s == ' ') continue;
+                if (*s == '|') {
+                    printf(CLEAN "%s", s);
+                    piped = 1;
+                }
+                else if (*s == ' ') printf(CLEAN " ");
 
                 else {
                     for (
@@ -43,6 +51,7 @@ int main() {
                 }
 
             }
+
             count++;
 
         } while ((s = strtok(NULL, " ")));
