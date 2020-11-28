@@ -41,12 +41,10 @@ int main() {
                 else if (*s == ' ') printf(CLEAN " ");
 
                 else {
-                    for (
-                        not_zero = 1, c = s;
-                        (*c) && not_zero;
-                        c++, not_zero = (*c != '0')
-                    );
-                    if (not_zero) Print(NONZERO, s);
+                    for (not_zero = 0, c = s; *c; c++)
+                        not_zero += 2*(*c != '0')-1;
+
+                    if (not_zero >= 0) Print(NONZERO, s);
                     else Print(ZERO, s);
                 }
 
